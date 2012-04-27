@@ -17,14 +17,14 @@ public class TreeTraverser {
     
     private final Set<Integer> pipeSymbolMarker = new HashSet<Integer>();
     
-    private static final FileFilter DIR_FILE_FILTER = new DirectoryFileFilter();
+    private final FileFilter DIR_FILE_FILTER = new DirectoryFileFilter();
     
     private int depth = 0;
     
     private long fileCount;
     private long dirCount;
     
-    private OptionsBean options;
+    private final OptionsBean options;
     
     private void print(String str) {
         System.out.print(str);
@@ -150,11 +150,14 @@ public class TreeTraverser {
         }
     }
     
-    private static class DirectoryFileFilter implements FileFilter {
+    private class DirectoryFileFilter implements FileFilter {
 
         @Override
         public boolean accept(File file) {
             if(file.isDirectory()) {
+                if((!options.isShowHidden()) && file.isHidden()) {
+                    return false;
+                }
                 return true;
             }
             return false;
