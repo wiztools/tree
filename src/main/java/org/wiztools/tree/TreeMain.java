@@ -14,7 +14,7 @@ import joptsimple.OptionSet;
  */
 public class TreeMain {
     private static void printHelp(PrintStream out) {
-        out.println("Usage: java -jar tree-jar-with-dependencies-NN.jar [options] [path]");
+        out.println("Usage: java -jar tree-NN-jar-with-dependencies.jar [options] [path]");
         out.println("Where options are:");
         out.println("\t-h\tPrint this message.");
         out.println("\t-a\tAll files (including hidden directories and files) are printed.");
