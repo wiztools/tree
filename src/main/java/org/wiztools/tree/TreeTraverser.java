@@ -2,6 +2,7 @@ package org.wiztools.tree;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.PrintStream;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,22 +22,22 @@ public class TreeTraverser {
     
     private int depth = 0;
     
-    private long fileCount;
-    private long dirCount;
+    private final Counter counter = new CounterImpl();
     
-    private final OptionsBean options;
+    private final Options options;
+    private final PrintStream out;
     
     private void print(String str) {
-        System.out.print(str);
+        out.print(str);
     }
     
     private void println(String str) {
-        System.out.println(str);
+        out.println(str);
     }
     
     private void printf(String str, Object ... o) {
-        System.out.printf(str, o);
-        System.out.println();
+        out.printf(str, o);
+        out.println();
     }
     
     private void printCommon() {
@@ -61,7 +62,7 @@ public class TreeTraverser {
         
         // init:
         depth++;
-        dirCount++;
+        counter.incrementFolderCount();
         
         // Print file-name logic:
         printCommon();
@@ -111,7 +112,7 @@ public class TreeTraverser {
         
         // init:
         depth++;
-        fileCount++;
+        counter.incrementFileCount();
         
         // Logic:
         printCommon();
@@ -122,8 +123,13 @@ public class TreeTraverser {
         depth--;
     }
     
-    public TreeTraverser(File file, OptionsBean options) {
+    public TreeTraverser(File file, Options options) {
+        this(file, options, System.out); // default output in System.out
+    }
+    
+    public TreeTraverser(File file, Options options, PrintStream out) {
         this.options = options;
+        this.out = out;
         
         // Start by printing the supplied folder / file name:
         println(file.getName());
@@ -143,10 +149,11 @@ public class TreeTraverser {
             // do nothing!
         }
         if(options.isDirOnly()) {
-            printf("%d directories", dirCount);
+            printf("%d directories", counter.getFolderCount());
         }
         else {
-            printf("%d directories, %d files", dirCount, fileCount);
+            printf("%d directories, %d files", counter.getFolderCount(),
+                    counter.getFileCount());
         }
     }
     
