@@ -8,12 +8,12 @@
     <packaging>jar</packaging>
 
     <name>tree</name>
-    <url>http://wiztools.googlecode.com</url>
+    <url>https://github.com/wiztools/tree</url>
     
     <scm>
-        <connection>scm:svn:http://wiztools.googlecode.com/svn/tree/trunk/</connection>
-        <developerConnection>scm:svn:https://wiztools.googlecode.com/svn/tree/trunk/</developerConnection>
-        <url>http://code.google.com/p/wiztools/source/browse/</url>
+        <connection>scm:git:https://github.com/wiztools/tree.git</connection>
+        <developerConnection>scm:git:https://github.com/wiztools/tree.git</developerConnection>
+        <url>https://github.com/wiztools/tree</url>
     </scm>
     
     <build>
@@ -52,13 +52,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <configuration>
-                    <tagBase>https://wiztools.googlecode.com/svn/tree/tags</tagBase>
-                </configuration>
             </plugin>
         </plugins>
     </build>
